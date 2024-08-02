@@ -1,12 +1,12 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { useAuthStore } from "@/store/Auth";
-import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
-import Link from "next/link";
 import React from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { IconBrandGithub, IconBrandGoogle } from "@tabler/icons-react";
+import { useAuthStore } from "@/store/Auth";
+import Link from "next/link";
 
 const BottomGradient = () => {
   return (
@@ -39,22 +39,17 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // collect data
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
 
-    //validation
     if (!email || !password) {
       setError(() => "Please fill out all fields");
       return;
     }
 
-    //handle loading and error
     setIsLoading(() => true);
     setError(() => "");
-
-    // login => store
 
     const loginResponse = await login(email.toString(), password.toString());
     if (loginResponse.error) {
@@ -87,7 +82,7 @@ export default function Login() {
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input
-            className="text-black"
+            className="text-white"
             id="email"
             name="email"
             placeholder="projectmayhem@fc.com"
@@ -97,7 +92,7 @@ export default function Login() {
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
           <Input
-            className="text-black"
+            className="text-white"
             id="password"
             name="password"
             placeholder="••••••••"
