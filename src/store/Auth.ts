@@ -61,12 +61,23 @@ export const useAuthStore = create<IAuthStore>()(
             throw new Error("Email or password is missing");
           }
 
-          const session = await account.createEmailPasswordSession(email, password);
+          // Ensure no active sessions
+    try {
+      await account.deleteSessions();
+    } catch (sessionError) {
+      console.warn("No session to delete or failed to delete session");
+    }
+
+          const session = await account.createEmailPasswordSession(
+            email,
+            password
+          );
           const [user, { jwt }] = await Promise.all([
             account.get<UserPrefs>(),
             account.createJWT(),
           ]);
-          if (!user.prefs?.reputation) await account.updatePrefs<UserPrefs>({ reputation: 0 });
+          if (!user.prefs?.reputation)
+            await account.updatePrefs<UserPrefs>({ reputation: 0 });
 
           set({ session, user, jwt });
 
