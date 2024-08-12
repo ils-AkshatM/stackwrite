@@ -30,24 +30,23 @@ export default function NumberTicker({
         motionValue.set(direction === "down" ? 0 : value);
       }, delay * 1000);
   }, [motionValue, isInView, delay, value, direction]);
-
-  useEffect(
+ useEffect(
     () =>
       springValue.on("change", (latest) => {
         if (ref.current) {
           ref.current.textContent = Intl.NumberFormat("en-US").format(
-            latest.toFixed(0),
+            latest.toFixed(0)
           );
         }
       }),
-    [springValue],
+    [springValue]
   );
 
   return (
     <span
       className={cn(
         "inline-block tabular-nums text-black dark:text-white tracking-wider",
-        className,
+        className
       )}
       ref={ref}
     />

@@ -62,11 +62,11 @@ export const useAuthStore = create<IAuthStore>()(
           }
 
           // Ensure no active sessions
-    try {
-      await account.deleteSessions();
-    } catch (sessionError) {
-      console.warn("No session to delete or failed to delete session");
-    }
+          try {
+            await account.deleteSessions();
+          } catch (sessionError) {
+            console.warn("No session to delete or failed to delete session");
+          }
 
           const session = await account.createEmailPasswordSession(
             email,
